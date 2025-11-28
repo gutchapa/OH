@@ -1,0 +1,113 @@
+# OpenHands (OH) Deployment Guide
+
+This repository provides an end-to-end skeleton for deploying the OpenHands backend and agent-server in one shot.
+
+## Prerequisites
+
+- Git
+- Docker & Docker Compose
+- Python 3.12+ (local dev)
+- MongoDB (optional, for cache persistence)
+
+## Getting Started
+
+1. Clone this repo on your VPS or local machine:
+
+   ```bash
+   git clone <this-repo-url> oh-deployment && cd oh-deployment
+   ```
+
+2. Copy or update `.env.example` to `.env` with your API keys:
+
+   ```bash
+   cp .env.example .env
+   # edit .env
+   ```
+
+3. Spin up services via Docker Compose:
+
+   ```bash
+   docker-compose up --build -d
+   ```
+
+4. Verify endpoints:
+
+   - Backend: http://<HOST>:42745/
+   - Agent-server: http://<HOST>:5000/health
+
+## Directory Structure
+
+```
+oh-deployment/
+├── backend/
+│   ├── Dockerfile
+│   └── requirements.txt
+├── agent-server/
+│   └── Dockerfile (and related code)
+├── config.toml        # Template configuration
+├── docker-compose.yml
+├── .env.example
+└── README.md
+```
+
+## Configuration
+
+Edit `config.toml` to adjust:
+
+- server.host & port
+- CORS settings
+- cache (in-memory & Mongo)
+- summarization limits
+- agent-server URL
+
+## Local Development
+
+1. Backend:
+
+   ```bash
+   cd backend
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+   uvicorn app.main:app --reload --host 0.0.0.0 --port 42745
+   ```
+
+2. Agent-server:
+
+   ```bash
+   cd agent-server
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt  # if exists
+   uvicorn main:app --reload --host 0.0.0.0 --port 5000
+   ```
+
+## Docker Compose
+
+`docker-compose.yml` orchestrates:
+
+- `backend` service (FastAPI)
+- `agent-server` service
+- `mongo` service (if `MONGO_URL` points to it)
+
+Run `docker-compose up -d --build` to start.
+
+## Variables & Secrets
+
+| env var          | description                       |
+|------------------|-----------------------------------|
+| OPENAI_API_KEY   | OpenAI GPT API key                |
+| MONGO_URL        | MongoDB connection string         |
+| DB_NAME          | MongoDB database name             |
+| AGENT_SERVER_URL | Agent-server endpoint base URL    |
+| YOUTUBE_API_KEY  | YouTube Data API key (optional)   |
+| TMDB_API_KEY     | TMDB API key (optional)           |
+| OMDB_API_KEY     | OMDb API key (optional)           |
+
+## Token Costs & Rate Limits
+
+- Model: `gpt-3.5-turbo` @ $0.002/1k tokens
+- Summarization reduces token burn by ~90%
+- Rate limit: ~3500 tokens/minute (~3 calls/sec)
+
+Happy deploying! 🚀
