@@ -1,0 +1,20 @@
+
+[core]
+debug = true
+workspace_base = "/home/bodhana/dev/OpenDevin/workspace"
+cache_dir = "/home/bodhana/dev/OpenDevin/cache"
+file_store_path = "/home/bodhana/dev/OpenDevin/data"
+
+[sandbox]
+type = "docker"
+runtime_container_image = "ghcr.io/openhands/runtime:0.61-nikolaik"
+user_id = 1000
+timeout = 600
+use_host_network = false
+ force_rebuild_runtime = false
+initialize_plugins = false
+
+[agent]
+agent_module = "openhands.agenthub.codeact_agent"
+agent_cls = "CodeActAgent"
+enable_browser = false

@@ -6,9 +6,9 @@ This repository provides an end-to-end skeleton for deploying the OpenHands back
 
 - Git
 - Docker & Docker Compose
-- Python 3.12+ (local dev)
+ 
 - MongoDB (optional, for cache persistence)
-
+  python-nodejs:python3.12-nodejs22"
 ## Getting Started
 
 1. Clone this repo on your VPS or local machine:
