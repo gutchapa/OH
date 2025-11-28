@@ -8,7 +8,8 @@ This repository provides an end-to-end skeleton for deploying the OpenHands back
 - Docker & Docker Compose
  
 - MongoDB (optional, for cache persistence)
-  python-nodejs:python3.12-nodejs22"
+- Pull OpenHands runtime image: `docker pull ghcr.io/openhands/runtime:0.61-nikolaik`
+- Pull OpenHands agent-server image: `docker pull ghcr.io/openhands/agent-server:latest`
 ## Getting Started
 
 1. Clone this repo on your VPS or local machine:
@@ -92,17 +93,7 @@ Edit `config.toml` to adjust:
 
 Run `docker-compose up -d --build` to start.
 
-## Variables & Secrets
 
-| env var          | description                       |
-|------------------|-----------------------------------|
-| OPENAI_API_KEY   | OpenAI GPT API key                |
-| MONGO_URL        | MongoDB connection string         |
-| DB_NAME          | MongoDB database name             |
-| AGENT_SERVER_URL | Agent-server endpoint base URL    |
-| YOUTUBE_API_KEY  | YouTube Data API key (optional)   |
-| TMDB_API_KEY     | TMDB API key (optional)           |
-| OMDB_API_KEY     | OMDb API key (optional)           |
 
 ## Token Costs & Rate Limits
 
