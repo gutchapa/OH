@@ -7,7 +7,19 @@ This repository provides an end-to-end skeleton for deploying the OpenHands back
 - Git
 - Docker & Docker Compose
  
-- MongoDB (optional, for cache persistence)
+- MongoDB (required for cache persistence).  
+  To run locally:
+  ```bash
+  # Install on Ubuntu/Debian
+  sudo apt-get update && sudo apt-get install -y mongodb
+  sudo systemctl start mongodb
+  # or run manually
+  mongod --dbpath ~/oh-deployment/data/db
+  ```  
+  Or via Docker:
+  ```bash
+  docker run -d --name mongo -p 27017:27017 -v ~/oh-deployment/data/db:/data/db mongo:6.0
+  ```
 - Pull OpenHands runtime image: `docker pull ghcr.io/openhands/runtime:0.61-nikolaik`
 - Pull OpenHands agent-server image: `docker pull ghcr.io/openhands/agent-server:latest`
 ## Getting Started
