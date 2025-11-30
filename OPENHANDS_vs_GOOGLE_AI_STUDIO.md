@@ -71,3 +71,12 @@ This document summarizes the differences, trade-offs, and ideal use-cases for th
 Both platforms excel in different phases:
 - **Prototype & Explore** in Google AI Studio.  
 - **Productionize & Automate** with OpenHands in your repo and CI.
+
+docker run --rm -it \
+  -p 8080:8080 \
+  -v /mnt/g/llm_models/llama-2-7b-chat:/models \
+  ghcr.io/ggerganov/llama.cpp:server \
+    --model /models/llama-2-7b-chat.Q4_K_M.gguf \
+    --host 0.0.0.0 \
+    --port 8080 \
+    --ctx-size 4096
