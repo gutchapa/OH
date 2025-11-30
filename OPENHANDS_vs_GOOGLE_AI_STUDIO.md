@@ -80,3 +80,12 @@ docker run --rm -it \
     --host 0.0.0.0 \
     --port 8080 \
     --ctx-size 4096
+  pkill -f openhands.server
+  export OPENAI_API_BASE="http://localhost:8080/v1"
+  export OPENAI_API_KEY="unused"
+  python -m openhands.server \
+  --host 0.0.0.0 \
+  --port 3000 \
+  --allow-cors \
+  --allow-iframe \
+  --workspace ./workspace
